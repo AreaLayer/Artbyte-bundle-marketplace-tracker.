@@ -1,5 +1,5 @@
 const BundleMarketplaceContractInfo = {
-  address: '0x4E9AE30d53d23d94bfA7bd0a43FFC8da8B392C6f',
+  address: '0x80bAa89cF5aa41339331916dFf22c5AFEff78885',
   abi: [
     {
       inputs: [
@@ -23,7 +23,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
@@ -42,7 +42,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
@@ -91,7 +91,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
@@ -116,7 +116,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
@@ -159,7 +159,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
@@ -178,7 +178,7 @@ const BundleMarketplaceContractInfo = {
           type: 'address',
         },
         {
-          indexed: true,
+          indexed: false,
           internalType: 'string',
           name: 'bundleID',
           type: 'string',

@@ -35,12 +35,21 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'ItemListed',
     (owner, bundleID, price, startingTime, isPrivate, allowedAddress) => {
+      console.log(
+        owner,
+        bundleID,
+        price,
+        startingTime,
+        isPrivate,
+        allowedAddress,
+      )
       callAPI('itemListed', { owner, bundleID, price, startingTime })
     },
   )
 
   //   item sold
   bundleMarketPlaceSC.on('ItemSold', (seller, buyer, bundleID, price) => {
+    console.log(seller, buyer, bundleID, price)
     callAPI('itemSold', { seller, buyer, bundleID, price })
   })
 
@@ -49,6 +58,7 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'ItemUpdated',
     (owner, bundleID, nft, tokenID, quantity, newPrice) => {
+      console.log(owner, bundleID, nft, tokenID, quantity, newPrice)
       callAPI('itemUpdated', {
         owner,
         bundleID,
@@ -62,6 +72,7 @@ const trackBundleMarketPlace = () => {
 
   //   item cancelled
   bundleMarketPlaceSC.on('ItemCanceled', (owner, bundleID) => {
+    console.log(owner, bundleID)
     callAPI('itemCanceled', { owner, bundleID })
   })
 
@@ -69,12 +80,14 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'OfferCreated',
     (creator, bundleID, payToken, price, deadline) => {
+      console.log(creator, bundleID, payToken, price, deadline)
       callAPI('offerCreated', { creator, bundleID, price, deadline })
     },
   )
 
   // offer cancelled
   bundleMarketPlaceSC.on('OfferCanceled', (creator, bundleID) => {
+    console.log(creator, bundleID)
     callAPI('offerCanceled', { creator, bundleID })
   })
 }
