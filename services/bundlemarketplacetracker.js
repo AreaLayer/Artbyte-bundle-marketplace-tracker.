@@ -20,8 +20,8 @@ const bundleMarketPlaceSC = loadBundleMarketplaceContract()
 
 const apiEndPoint = 'https://api0.artion.io/bundlemarketplace/'
 
-const callAPI = (endpoint, data) => {
-  axios({
+const callAPI = async (endpoint, data) => {
+  await axios({
     method: 'post',
     url: apiEndPoint + endpoint,
     data,
@@ -34,7 +34,7 @@ const trackBundleMarketPlace = () => {
   //   item listed
   bundleMarketPlaceSC.on(
     'ItemListed',
-    (owner, bundleID, price, startingTime, isPrivate, allowedAddress) => {
+    async (owner, bundleID, price, startingTime, isPrivate, allowedAddress) => {
       console.log(
         owner,
         bundleID,
@@ -43,23 +43,23 @@ const trackBundleMarketPlace = () => {
         isPrivate,
         allowedAddress,
       )
-      callAPI('itemListed', { owner, bundleID, price, startingTime })
+      await callAPI('itemListed', { owner, bundleID, price, startingTime })
     },
   )
 
   //   item sold
-  bundleMarketPlaceSC.on('ItemSold', (seller, buyer, bundleID, price) => {
+  bundleMarketPlaceSC.on('ItemSold', async (seller, buyer, bundleID, price) => {
     console.log(seller, buyer, bundleID, price)
-    callAPI('itemSold', { seller, buyer, bundleID, price })
+    await callAPI('itemSold', { seller, buyer, bundleID, price })
   })
 
   //   item updated
 
   bundleMarketPlaceSC.on(
     'ItemUpdated',
-    (owner, bundleID, nft, tokenID, quantity, newPrice) => {
+    async (owner, bundleID, nft, tokenID, quantity, newPrice) => {
       console.log(owner, bundleID, nft, tokenID, quantity, newPrice)
-      callAPI('itemUpdated', {
+      await callAPI('itemUpdated', {
         owner,
         bundleID,
         nft,
@@ -71,24 +71,24 @@ const trackBundleMarketPlace = () => {
   )
 
   //   item cancelled
-  bundleMarketPlaceSC.on('ItemCanceled', (owner, bundleID) => {
+  bundleMarketPlaceSC.on('ItemCanceled', async (owner, bundleID) => {
     console.log(owner, bundleID)
-    callAPI('itemCanceled', { owner, bundleID })
+    await callAPI('itemCanceled', { owner, bundleID })
   })
 
   // offer created
   bundleMarketPlaceSC.on(
     'OfferCreated',
-    (creator, bundleID, payToken, price, deadline) => {
+    async (creator, bundleID, payToken, price, deadline) => {
       console.log(creator, bundleID, payToken, price, deadline)
-      callAPI('offerCreated', { creator, bundleID, price, deadline })
+      await callAPI('offerCreated', { creator, bundleID, price, deadline })
     },
   )
 
   // offer cancelled
-  bundleMarketPlaceSC.on('OfferCanceled', (creator, bundleID) => {
+  bundleMarketPlaceSC.on('OfferCanceled', async (creator, bundleID) => {
     console.log(creator, bundleID)
-    callAPI('offerCanceled', { creator, bundleID })
+    await callAPI('offerCanceled', { creator, bundleID })
   })
 }
 
