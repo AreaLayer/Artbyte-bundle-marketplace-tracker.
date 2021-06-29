@@ -1,5 +1,5 @@
 require('dotenv').config()
 
-const trackMarketPlace = require('./services/marketplacetracker')
+const trackBundleMarketPlace = require('./services/bundlemarketplacetracker')
 
-trackMarketPlace()
+trackBundleMarketPlace()

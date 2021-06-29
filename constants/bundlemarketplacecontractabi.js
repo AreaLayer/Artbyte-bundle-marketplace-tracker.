@@ -1,5 +1,5 @@
-const MarketplaceContractInfo = {
-  address: '0x17bDD333e7DAD2bDe1109B1f6E3c308F9f4E4f93',
+const BundleMarketplaceContractInfo = {
+  address: '0x4E9AE30d53d23d94bfA7bd0a43FFC8da8B392C6f',
   abi: [
     {
       inputs: [
@@ -24,15 +24,9 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
       ],
       name: 'ItemCanceled',
@@ -49,26 +43,14 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
         {
           indexed: false,
           internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'quantity',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'pricePerItem',
+          name: 'price',
           type: 'uint256',
         },
         {
@@ -110,21 +92,9 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'quantity',
-          type: 'uint256',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
         {
           indexed: false,
@@ -147,15 +117,27 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
         {
           indexed: false,
-          internalType: 'uint256',
+          internalType: 'address[]',
+          name: 'nft',
+          type: 'address[]',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
           name: 'tokenId',
-          type: 'uint256',
+          type: 'uint256[]',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
+          name: 'quantity',
+          type: 'uint256[]',
         },
         {
           indexed: false,
@@ -178,15 +160,9 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
       ],
       name: 'OfferCanceled',
@@ -203,15 +179,9 @@ const MarketplaceContractInfo = {
         },
         {
           indexed: true,
-          internalType: 'address',
-          name: 'nft',
-          type: 'address',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'tokenId',
-          type: 'uint256',
+          internalType: 'string',
+          name: 'bundleID',
+          type: 'string',
         },
         {
           indexed: false,
@@ -222,13 +192,7 @@ const MarketplaceContractInfo = {
         {
           indexed: false,
           internalType: 'uint256',
-          name: 'quantity',
-          type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'uint256',
-          name: 'pricePerItem',
+          name: 'price',
           type: 'uint256',
         },
         {
@@ -288,8 +252,7 @@ const MarketplaceContractInfo = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
+        { internalType: 'string', name: '_bundleID', type: 'string' },
         { internalType: 'address', name: '_creator', type: 'address' },
       ],
       name: 'acceptOffer',
@@ -307,31 +270,21 @@ const MarketplaceContractInfo = {
       type: 'function',
     },
     {
-      inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-        { internalType: 'address payable', name: '_owner', type: 'address' },
-      ],
+      inputs: [{ internalType: 'string', name: '_bundleID', type: 'string' }],
       name: 'buyItem',
       outputs: [],
       stateMutability: 'payable',
       type: 'function',
     },
     {
-      inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-      ],
+      inputs: [{ internalType: 'string', name: '_bundleID', type: 'string' }],
       name: 'cancelListing',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
     },
     {
-      inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-      ],
+      inputs: [{ internalType: 'string', name: '_bundleID', type: 'string' }],
       name: 'cancelOffer',
       outputs: [],
       stateMutability: 'nonpayable',
@@ -339,11 +292,9 @@ const MarketplaceContractInfo = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
+        { internalType: 'string', name: '_bundleID', type: 'string' },
         { internalType: 'contract IERC20', name: '_payToken', type: 'address' },
-        { internalType: 'uint256', name: '_quantity', type: 'uint256' },
-        { internalType: 'uint256', name: '_pricePerItem', type: 'uint256' },
+        { internalType: 'uint256', name: '_price', type: 'uint256' },
         { internalType: 'uint256', name: '_deadline', type: 'uint256' },
       ],
       name: 'createOffer',
@@ -360,10 +311,28 @@ const MarketplaceContractInfo = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-        { internalType: 'uint256', name: '_quantity', type: 'uint256' },
-        { internalType: 'uint256', name: '_pricePerItem', type: 'uint256' },
+        { internalType: 'address', name: '_owner', type: 'address' },
+        { internalType: 'string', name: '_bundleID', type: 'string' },
+      ],
+      name: 'getListing',
+      outputs: [
+        { internalType: 'address[]', name: 'nfts', type: 'address[]' },
+        { internalType: 'uint256[]', name: 'tokenIds', type: 'uint256[]' },
+        { internalType: 'uint256[]', name: 'quantities', type: 'uint256[]' },
+        { internalType: 'uint256', name: 'price', type: 'uint256' },
+        { internalType: 'uint256', name: 'startingTime', type: 'uint256' },
+        { internalType: 'address', name: 'allowedAddress', type: 'address' },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        { internalType: 'string', name: '_bundleID', type: 'string' },
+        { internalType: 'address[]', name: '_nftAddresses', type: 'address[]' },
+        { internalType: 'uint256[]', name: '_tokenIds', type: 'uint256[]' },
+        { internalType: 'uint256[]', name: '_quantities', type: 'uint256[]' },
+        { internalType: 'uint256', name: '_price', type: 'uint256' },
         { internalType: 'uint256', name: '_startingTime', type: 'uint256' },
         { internalType: 'address', name: '_allowedAddress', type: 'address' },
       ],
@@ -375,13 +344,11 @@ const MarketplaceContractInfo = {
     {
       inputs: [
         { internalType: 'address', name: '', type: 'address' },
-        { internalType: 'uint256', name: '', type: 'uint256' },
-        { internalType: 'address', name: '', type: 'address' },
+        { internalType: 'bytes32', name: '', type: 'bytes32' },
       ],
       name: 'listings',
       outputs: [
-        { internalType: 'uint256', name: 'quantity', type: 'uint256' },
-        { internalType: 'uint256', name: 'pricePerItem', type: 'uint256' },
+        { internalType: 'uint256', name: 'price', type: 'uint256' },
         { internalType: 'uint256', name: 'startingTime', type: 'uint256' },
         { internalType: 'address', name: 'allowedAddress', type: 'address' },
       ],
@@ -393,7 +360,7 @@ const MarketplaceContractInfo = {
       name: 'marketplace',
       outputs: [
         {
-          internalType: 'contract IFantomBundleMarketplace',
+          internalType: 'contract IFantomMarketplace',
           name: '',
           type: 'address',
         },
@@ -403,15 +370,13 @@ const MarketplaceContractInfo = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '', type: 'address' },
-        { internalType: 'uint256', name: '', type: 'uint256' },
+        { internalType: 'bytes32', name: '', type: 'bytes32' },
         { internalType: 'address', name: '', type: 'address' },
       ],
       name: 'offers',
       outputs: [
         { internalType: 'contract IERC20', name: 'payToken', type: 'address' },
-        { internalType: 'uint256', name: 'quantity', type: 'uint256' },
-        { internalType: 'uint256', name: 'pricePerItem', type: 'uint256' },
+        { internalType: 'uint256', name: 'price', type: 'uint256' },
         { internalType: 'uint256', name: 'deadline', type: 'uint256' },
       ],
       stateMutability: 'view',
@@ -420,6 +385,13 @@ const MarketplaceContractInfo = {
     {
       inputs: [],
       name: 'owner',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+      name: 'owners',
       outputs: [{ internalType: 'address', name: '', type: 'address' }],
       stateMutability: 'view',
       type: 'function',
@@ -454,20 +426,19 @@ const MarketplaceContractInfo = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '_marketplace', type: 'address' },
+        { internalType: 'string', name: '_bundleID', type: 'string' },
+        { internalType: 'uint256', name: '_newPrice', type: 'uint256' },
       ],
-      name: 'updateBundleMarketplace',
+      name: 'updateListing',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
     },
     {
       inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-        { internalType: 'uint256', name: '_newPrice', type: 'uint256' },
+        { internalType: 'address', name: '_marketplace', type: 'address' },
       ],
-      name: 'updateListing',
+      name: 'updateMarketplace',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -498,19 +469,7 @@ const MarketplaceContractInfo = {
       inputs: [
         { internalType: 'address', name: '_nftAddress', type: 'address' },
         { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-        { internalType: 'address', name: '_owner', type: 'address' },
-      ],
-      name: 'validateCancelListing',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        { internalType: 'address', name: '_nftAddress', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
-        { internalType: 'address', name: '_seller', type: 'address' },
-        { internalType: 'address', name: '_buyer', type: 'address' },
+        { internalType: 'uint256', name: '_quantity', type: 'uint256' },
       ],
       name: 'validateItemSold',
       outputs: [],
@@ -520,4 +479,4 @@ const MarketplaceContractInfo = {
   ],
 }
 
-module.exports = MarketplaceContractInfo
+module.exports = BundleMarketplaceContractInfo
