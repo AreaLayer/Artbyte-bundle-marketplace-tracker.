@@ -78,13 +78,27 @@ const trackBundleMarketPlace = () => {
       nft = toLowerCase(nft)
       tokenID = parseInt(tokenID)
       quantity = parseInt(quantity)
+
+      let nfts = []
+      let tokenIDs = []
+      let quantities = []
+
+      nft.map((item) => {
+        nfts.push(toLowerCase(item))
+      })
+      tokenID.map((item) => {
+        tokenIDs.push(parseInt(item))
+      })
+      quantity.map((item) => {
+        quantities.push(parseInt(item))
+      })
       newPrice = parseToFTM(newPrice)
       await callAPI('itemUpdated', {
         owner,
         bundleID,
-        nft,
-        tokenID,
-        quantity,
+        nft: nfts,
+        tokenID: tokenIDs,
+        quantity: quantities,
         newPrice,
       })
     },
