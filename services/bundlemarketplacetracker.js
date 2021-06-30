@@ -35,7 +35,7 @@ const callAPI = async (endpoint, data) => {
   await axios({
     method: 'post',
     url: apiEndPoint + endpoint,
-    data: JSON.stringify(data),
+    data,
   })
 }
 
@@ -46,14 +46,6 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'ItemListed',
     async (owner, bundleID, price, startingTime, isPrivate, allowedAddress) => {
-      console.log(
-        owner,
-        bundleID,
-        price,
-        startingTime,
-        isPrivate,
-        allowedAddress,
-      )
       owner = toLowerCase(owner)
       price = parseToFTM(price)
       startingTime = convertTime(startingTime)
