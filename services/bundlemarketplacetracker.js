@@ -20,6 +20,17 @@ const bundleMarketPlaceSC = loadBundleMarketplaceContract()
 
 const apiEndPoint = 'https://api0.artion.io/bundlemarketplace/'
 
+const toLowerCase = (val) => {
+  if (val) return val.toLowerCase()
+  else return val
+}
+const parseToFTM = (inWei) => {
+  return parseFloat(inWei.toString()) / 10 ** 18
+}
+const convertTime = (value) => {
+  return parseFloat(value) * 1000
+}
+
 const callAPI = async (endpoint, data) => {
   await axios({
     method: 'post',
@@ -43,13 +54,18 @@ const trackBundleMarketPlace = () => {
         isPrivate,
         allowedAddress,
       )
+      owner = toLowerCase(owner)
+      price = parseToFTM(price)
+      startingTime = convertTime(startingTime)
       await callAPI('itemListed', { owner, bundleID, price, startingTime })
     },
   )
 
   //   item sold
   bundleMarketPlaceSC.on('ItemSold', async (seller, buyer, bundleID, price) => {
-    console.log(seller, buyer, bundleID, price)
+    seller = toLowerCase(seller)
+    buyer = toLowerCase(buyer)
+    price = parseToFTM(price)
     await callAPI('itemSold', { seller, buyer, bundleID, price })
   })
 
@@ -58,7 +74,11 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'ItemUpdated',
     async (owner, bundleID, nft, tokenID, quantity, newPrice) => {
-      console.log(owner, bundleID, nft, tokenID, quantity, newPrice)
+      owner = toLowerCase(owner)
+      nft = toLowerCase(nft)
+      tokenID = parseInt(tokenID)
+      quantity = parseInt(quantity)
+      newPrice = parseToFTM(newPrice)
       await callAPI('itemUpdated', {
         owner,
         bundleID,
@@ -72,7 +92,7 @@ const trackBundleMarketPlace = () => {
 
   //   item cancelled
   bundleMarketPlaceSC.on('ItemCanceled', async (owner, bundleID) => {
-    console.log(owner, bundleID)
+    owner = toLowerCase(owner)
     await callAPI('itemCanceled', { owner, bundleID })
   })
 
@@ -80,14 +100,16 @@ const trackBundleMarketPlace = () => {
   bundleMarketPlaceSC.on(
     'OfferCreated',
     async (creator, bundleID, payToken, price, deadline) => {
-      console.log(creator, bundleID, payToken, price, deadline)
+      creator = toLowerCase(creator)
+      price = parseToFTM(price)
+      deadline = convertTime(deadline)
       await callAPI('offerCreated', { creator, bundleID, price, deadline })
     },
   )
 
   // offer cancelled
   bundleMarketPlaceSC.on('OfferCanceled', async (creator, bundleID) => {
-    console.log(creator, bundleID)
+    creator = toLowerCase(creator)
     await callAPI('offerCanceled', { creator, bundleID })
   })
 }
