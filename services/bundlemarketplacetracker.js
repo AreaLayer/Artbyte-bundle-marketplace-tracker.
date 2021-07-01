@@ -18,7 +18,7 @@ const loadBundleMarketplaceContract = () => {
 
 const bundleMarketPlaceSC = loadBundleMarketplaceContract()
 
-const apiEndPoint = 'https://api0.artion.io/bundlemarketplace/'
+const apiEndPoint = process.env.API_ENDPOINT
 
 const toLowerCase = (val) => {
   if (val) return val.toLowerCase()
