@@ -5,13 +5,13 @@ const axios = require('axios')
 const BundleMarketplaceContractInfo = require('../constants/bundlemarketplacecontractabi')
 
 const provider = new ethers.providers.JsonRpcProvider(
-  process.env.MAINNET_RPC,
-  parseInt(process.env.MAINNET_CHAINID),
+  process.env.NETWORK_RPC,
+  parseInt(process.env.NETWORK_CHAINID),
 )
 
 const loadBundleMarketplaceContract = () => {
   let abi = BundleMarketplaceContractInfo.abi
-  let address = BundleMarketplaceContractInfo.address
+  let address = process.env.CONTRACTADDRESS
   let contract = new ethers.Contract(address, abi, provider)
   return contract
 }
