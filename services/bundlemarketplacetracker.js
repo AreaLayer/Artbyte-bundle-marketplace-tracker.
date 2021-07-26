@@ -32,11 +32,17 @@ const convertTime = (value) => {
 }
 
 const callAPI = async (endpoint, data) => {
-  await axios({
-    method: 'post',
-    url: apiEndPoint + endpoint,
-    data,
-  })
+  try {
+    let response = await axios({
+      method: 'post',
+      url: apiEndPoint + endpoint,
+      data,
+    })
+    console.log(response)
+  } catch (error) {
+    console.log(endpoint)
+    console.log(error)
+  }
 }
 
 const trackBundleMarketPlace = () => {
@@ -49,6 +55,7 @@ const trackBundleMarketPlace = () => {
       owner = toLowerCase(owner)
       price = parseToFTM(price)
       startingTime = convertTime(startingTime)
+      console.log(`item listed`, owner, bundleID, price, startingTime)
       await callAPI('itemListed', { owner, bundleID, price, startingTime })
     },
   )
@@ -82,6 +89,7 @@ const trackBundleMarketPlace = () => {
         quantities.push(parseInt(item))
       })
       newPrice = parseToFTM(newPrice)
+      console.log('item updated')
       console.log(owner, bundleID, nfts, tokenIDs, quantities, newPrice)
       await callAPI('itemUpdated', {
         owner,
