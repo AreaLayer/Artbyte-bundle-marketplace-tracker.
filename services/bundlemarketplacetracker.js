@@ -51,29 +51,55 @@ const trackBundleMarketPlace = () => {
   //   item listed
   bundleMarketPlaceSC.on(
     'ItemListed',
-    async (owner, bundleID, price, startingTime, isPrivate, allowedAddress) => {
+    async (
+      owner,
+      bundleID,
+      paymentToken,
+      price,
+      startingTime,
+      isPrivate,
+      allowedAddress,
+    ) => {
       owner = toLowerCase(owner)
+      paymentToken = toLowerCase(paymentToken)
       price = parseToFTM(price)
       startingTime = convertTime(startingTime)
       console.log(`item listed`, owner, bundleID, price, startingTime)
-      await callAPI('itemListed', { owner, bundleID, price, startingTime })
+      await callAPI('itemListed', {
+        owner,
+        bundleID,
+        paymentToken,
+        price,
+        startingTime,
+      })
     },
   )
 
   //   item sold
-  bundleMarketPlaceSC.on('ItemSold', async (seller, buyer, bundleID, price) => {
-    seller = toLowerCase(seller)
-    buyer = toLowerCase(buyer)
-    price = parseToFTM(price)
-    await callAPI('itemSold', { seller, buyer, bundleID, price })
-  })
+  bundleMarketPlaceSC.on(
+    'ItemSold',
+    async (seller, buyer, bundleID, paymentToken, unitPrice, price) => {
+      seller = toLowerCase(seller)
+      buyer = toLowerCase(buyer)
+      paymentToken = toLowerCase(paymentToken)
+      price = parseToFTM(price)
+      await callAPI('itemSold', {
+        seller,
+        buyer,
+        bundleID,
+        paymentToken,
+        price,
+      })
+    },
+  )
 
   //   item updated
 
   bundleMarketPlaceSC.on(
     'ItemUpdated',
-    async (owner, bundleID, nft, tokenID, quantity, newPrice) => {
+    async (owner, bundleID, nft, tokenID, quantity, paymentToken, newPrice) => {
       owner = toLowerCase(owner)
+      paymentToken = toLowerCase(paymentToken)
 
       let nfts = []
       let tokenIDs = []
@@ -98,6 +124,7 @@ const trackBundleMarketPlace = () => {
         tokenID: tokenIDs,
         quantity: quantities,
         newPrice,
+        paymentToken,
       })
     },
   )
@@ -111,11 +138,18 @@ const trackBundleMarketPlace = () => {
   // offer created
   bundleMarketPlaceSC.on(
     'OfferCreated',
-    async (creator, bundleID, payToken, price, deadline) => {
+    async (creator, bundleID, paymentToken, price, deadline) => {
       creator = toLowerCase(creator)
+      paymentToken = toLowerCase(paymentToken)
       price = parseToFTM(price)
       deadline = convertTime(deadline)
-      await callAPI('offerCreated', { creator, bundleID, price, deadline })
+      await callAPI('offerCreated', {
+        creator,
+        bundleID,
+        paymentToken,
+        price,
+        deadline,
+      })
     },
   )
 
