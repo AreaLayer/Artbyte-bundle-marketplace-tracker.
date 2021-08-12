@@ -1,18 +1,6 @@
 const BundleMarketplaceContractInfo = {
-  address: '0x0EeB6B95B52dfDFb86CcF960F8408a211555b63b',
+  address: '0x03b0Dd901E3366f6666c2eb411D14c469b8E8727',
   abi: [
-    {
-      inputs: [
-        {
-          internalType: 'address payable',
-          name: '_feeRecipient',
-          type: 'address',
-        },
-        { internalType: 'uint256', name: '_platformFee', type: 'uint256' },
-      ],
-      stateMutability: 'nonpayable',
-      type: 'constructor',
-    },
     {
       anonymous: false,
       inputs: [
@@ -49,6 +37,12 @@ const BundleMarketplaceContractInfo = {
         },
         {
           indexed: false,
+          internalType: 'address',
+          name: 'payToken',
+          type: 'address',
+        },
+        {
+          indexed: false,
           internalType: 'uint256',
           name: 'price',
           type: 'uint256',
@@ -58,18 +52,6 @@ const BundleMarketplaceContractInfo = {
           internalType: 'uint256',
           name: 'startingTime',
           type: 'uint256',
-        },
-        {
-          indexed: false,
-          internalType: 'bool',
-          name: 'isPrivate',
-          type: 'bool',
-        },
-        {
-          indexed: false,
-          internalType: 'address',
-          name: 'allowedAddress',
-          type: 'address',
         },
       ],
       name: 'ItemListed',
@@ -95,6 +77,18 @@ const BundleMarketplaceContractInfo = {
           internalType: 'string',
           name: 'bundleID',
           type: 'string',
+        },
+        {
+          indexed: false,
+          internalType: 'address',
+          name: 'payToken',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'unitPrice',
+          type: 'uint256',
         },
         {
           indexed: false,
@@ -138,6 +132,12 @@ const BundleMarketplaceContractInfo = {
           internalType: 'uint256[]',
           name: 'quantity',
           type: 'uint256[]',
+        },
+        {
+          indexed: false,
+          internalType: 'address',
+          name: 'payToken',
+          type: 'address',
         },
         {
           indexed: false,
@@ -262,9 +262,13 @@ const BundleMarketplaceContractInfo = {
     },
     {
       inputs: [],
-      name: 'auction',
+      name: 'addressRegistry',
       outputs: [
-        { internalType: 'contract IFantomAuction', name: '', type: 'address' },
+        {
+          internalType: 'contract IFantomAddressRegistry',
+          name: '',
+          type: 'address',
+        },
       ],
       stateMutability: 'view',
       type: 'function',
@@ -274,6 +278,16 @@ const BundleMarketplaceContractInfo = {
       name: 'buyItem',
       outputs: [],
       stateMutability: 'payable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        { internalType: 'string', name: '_bundleID', type: 'string' },
+        { internalType: 'address', name: '_payToken', type: 'address' },
+      ],
+      name: 'buyItem',
+      outputs: [],
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -321,9 +335,22 @@ const BundleMarketplaceContractInfo = {
         { internalType: 'uint256[]', name: 'quantities', type: 'uint256[]' },
         { internalType: 'uint256', name: 'price', type: 'uint256' },
         { internalType: 'uint256', name: 'startingTime', type: 'uint256' },
-        { internalType: 'address', name: 'allowedAddress', type: 'address' },
       ],
       stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address payable',
+          name: '_feeRecipient',
+          type: 'address',
+        },
+        { internalType: 'uint256', name: '_platformFee', type: 'uint256' },
+      ],
+      name: 'initialize',
+      outputs: [],
+      stateMutability: 'nonpayable',
       type: 'function',
     },
     {
@@ -332,9 +359,9 @@ const BundleMarketplaceContractInfo = {
         { internalType: 'address[]', name: '_nftAddresses', type: 'address[]' },
         { internalType: 'uint256[]', name: '_tokenIds', type: 'uint256[]' },
         { internalType: 'uint256[]', name: '_quantities', type: 'uint256[]' },
+        { internalType: 'address', name: '_payToken', type: 'address' },
         { internalType: 'uint256', name: '_price', type: 'uint256' },
         { internalType: 'uint256', name: '_startingTime', type: 'uint256' },
-        { internalType: 'address', name: '_allowedAddress', type: 'address' },
       ],
       name: 'listItem',
       outputs: [],
@@ -348,22 +375,9 @@ const BundleMarketplaceContractInfo = {
       ],
       name: 'listings',
       outputs: [
+        { internalType: 'address', name: 'payToken', type: 'address' },
         { internalType: 'uint256', name: 'price', type: 'uint256' },
         { internalType: 'uint256', name: 'startingTime', type: 'uint256' },
-        { internalType: 'address', name: 'allowedAddress', type: 'address' },
-      ],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'marketplace',
-      outputs: [
-        {
-          internalType: 'contract IFantomMarketplace',
-          name: '',
-          type: 'address',
-        },
       ],
       stateMutability: 'view',
       type: 'function',
@@ -418,8 +432,8 @@ const BundleMarketplaceContractInfo = {
       type: 'function',
     },
     {
-      inputs: [{ internalType: 'address', name: '_auction', type: 'address' }],
-      name: 'updateAuction',
+      inputs: [{ internalType: 'address', name: '_registry', type: 'address' }],
+      name: 'updateAddressRegistry',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -427,18 +441,10 @@ const BundleMarketplaceContractInfo = {
     {
       inputs: [
         { internalType: 'string', name: '_bundleID', type: 'string' },
+        { internalType: 'address', name: '_payToken', type: 'address' },
         { internalType: 'uint256', name: '_newPrice', type: 'uint256' },
       ],
       name: 'updateListing',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [
-        { internalType: 'address', name: '_marketplace', type: 'address' },
-      ],
-      name: 'updateMarketplace',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
