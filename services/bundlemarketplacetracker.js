@@ -24,8 +24,19 @@ const toLowerCase = (val) => {
   if (val) return val.toLowerCase()
   else return val
 }
-const parseToFTM = (inWei) => {
-  return parseFloat(inWei.toString()) / 10 ** 18
+const parseToken = async (inWei, paymentToken) => {
+  paymentToken = toLowerCase(paymentToken)
+  let tokenDecimals = decimalStore.get(paymentToken)
+  console.log(tokenDecimals)
+  if (tokenDecimals > 0)
+    return parseFloat(inWei.toString()) / 10 ** tokenDecimals
+  let decimals = await axios({
+    method: 'get',
+    url: process.env.DECIMAL_ENDPOINT + paymentToken,
+  })
+  decimals = parseInt(decimals.data.data)
+  decimalStore.set(paymentToken, decimals)
+  return parseFloat(inWei.toString()) / 10 ** decimals
 }
 const convertTime = (value) => {
   return parseFloat(value) * 1000
@@ -54,7 +65,7 @@ const trackBundleMarketPlace = () => {
     async (owner, bundleID, paymentToken, price, startingTime) => {
       owner = toLowerCase(owner)
       paymentToken = toLowerCase(paymentToken)
-      price = parseToFTM(price)
+      price = await parseToken(price, paymentToken)
       startingTime = convertTime(startingTime)
       await callAPI('itemListed', {
         owner,
@@ -73,7 +84,7 @@ const trackBundleMarketPlace = () => {
       seller = toLowerCase(seller)
       buyer = toLowerCase(buyer)
       paymentToken = toLowerCase(paymentToken)
-      price = parseToFTM(price)
+      price = await parseToken(price, paymentToken)
       await callAPI('itemSold', {
         seller,
         buyer,
@@ -105,7 +116,7 @@ const trackBundleMarketPlace = () => {
       quantity.map((item) => {
         quantities.push(parseInt(item))
       })
-      newPrice = parseToFTM(newPrice)
+      newPrice = await parseToken(newPrice, paymentToken)
       await callAPI('itemUpdated', {
         owner,
         bundleID,
@@ -130,7 +141,7 @@ const trackBundleMarketPlace = () => {
     async (creator, bundleID, paymentToken, price, deadline) => {
       creator = toLowerCase(creator)
       paymentToken = toLowerCase(paymentToken)
-      price = parseToFTM(price)
+      price = await parseToken(price, paymentToken)
       deadline = convertTime(deadline)
       await callAPI('offerCreated', {
         creator,
