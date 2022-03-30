@@ -1,6 +1,7 @@
 require('dotenv').config()
 const ethers = require('ethers')
 const axios = require('axios')
+const rbtc = require ('rbtc')
 
 const BundleMarketplaceContractInfo = require('../constants/bundlemarketplacecontractabi')
 
